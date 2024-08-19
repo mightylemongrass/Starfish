@@ -11,6 +11,6 @@ video_file: C:\\Users\\ianki\\Documents\\2023-2024_coding\\AI_studies\\starfish_
 output_file_location: C:\\Users\\ianki\\Documents\\2023-2024_coding\\AI_studies\\starfish_final\\starfish_finder.avi
 overlap_threshold: 50
 csv_filepath: C:\\Users\\ianki\\Documents\\2023-2024_coding\\AI_studies\\starfish_final\\starfish_bboxes.csv
-faster_rcnn_conf_threshold: 0.5
+faster_rcnn_conf_threshold: 0.3
 frame_rate_of_program: 30
-faster_rcnn_location: C:\\Users\\ianki\\Documents\\2023-2024_coding\\AI_studies\\starfish_final\\best_brittle_star_model7.pth
+faster_rcnn_location: C:\\Users\\ianki\\Documents\\2023-2024_coding\\AI_studies\\starfish_final\\best_brittle_star_model6.pth # change this in your files, 6 is the model to use, not 7
