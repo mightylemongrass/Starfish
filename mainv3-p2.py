@@ -78,12 +78,6 @@ def merge_boxes(faster_rcnn_boxes, yolov6_boxes, iou_threshold=0.5):
 
 
 
-
-
-
-
-
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -190,7 +184,7 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.31</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.33</span></p></body></html>"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">YOLO Ckpt File Location</span></p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">YOLO Conf Threshold: </span></p></body></html>"))
         self.Device.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -199,12 +193,12 @@ class Ui_MainWindow(object):
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0</span></p></body></html>"))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Device</span></p></body></html>"))
-        self.label_5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">BBox Overlap Threshold</span></p></body></html>"))
+        self.label_5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">IOU Threshold</span></p></body></html>"))
         self.overlap_threshold.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">50</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.4</span></p></body></html>"))
         self.label_6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Faster Rcnn Ckpt File Location</span></p></body></html>"))
         self.fasterrcnn_ckpt_file.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -216,7 +210,7 @@ class Ui_MainWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.3</span></p></body></html>"))
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.31</span></p></body></html>"))
         self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Output Video File Location</span></p></body></html>"))
         self.output_vid.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -246,22 +240,14 @@ class Ui_MainWindow(object):
 
 
 
-
-
-
-
-
-
-
-
-def main(weights, device, conf_threshold, video_file, output_file, overlap_threshold, csv_file_path, rcnn_threshold, frame_rate, faster_rcnn_location):
+def main(weights, device, conf_threshold, video_file, output_file, iou_threshold, csv_file_path, rcnn_threshold, frame_rate, faster_rcnn_location):
 
     img_size = 640
-    conf_thres = 0.2
     iou_thres = 0.45
     max_det = 1000
     agnostic_nms = False
     half = False
+    overlap_threshold = 50
 
 
     # FAST_RCNN INIT
@@ -301,55 +287,94 @@ def main(weights, device, conf_threshold, video_file, output_file, overlap_thres
         ret, frame = cap.read()
         np_frame = np.asarray(copy.deepcopy(frame))  # image with bounding box on it
         ai_frame = np.asarray(copy.deepcopy(frame))
-        H, W = np_frame.shape[0:2]
+        try:
+            H, W = np_frame.shape[0:2]
+        except:
+            break
         cv2.resizeWindow('output', W, H)
 
         if timer <= frame_rate:
             (success, boxes) = trackers.update(frame)
 
             if success:
+                px = []
+                py = []
+                pw = []
+                ph = []
                 for i, box in enumerate(boxes):
                     (x, y, w, h) = [int(v) for v in box]
                     if 0 <= x < W and 0 <= y < H and x + w <= W and y + h <= H:
+                        px.append(x)
+                        py.append(y)
+                        pw.append(w)
+                        ph.append(h)
                         cv2.rectangle(np_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
                         saved_bboxes.append([ind + 1, x, x + w, y, y + h])
 
             if not success:
+                print('failure')
+
+
                 trackers = cv2.legacy.MultiTracker_create()
-                for box in boxes:
-                    x, y, w, h = [int(v) for v in box]
-                    if 0 <= x < W and 0 <= y < H and x + w <= W and y + h <= H:
-                        tracker = OPENCV_OBJECT_TRACKERS['csrt']()
-                        trackers.add(tracker, frame, (x, y, w, h))
-                        cv2.rectangle(np_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-                        saved_bboxes.append([ind + 1, x, x + w, y, y + h])
+                for index in range(0, len(px)):
+                    if px[index]+pw[index] < W and px[index] > 0 and py[index]+ph[index] < H+0 and py[index] > 0:
+                        roi2 = (px[index], py[index], pw[index], ph[index])
+                        tracker = tracker = OPENCV_OBJECT_TRACKERS['csrt']()
+                        trackers.add(tracker, frame, roi2)
+
+                bbox_trackers = trackers.getObjects()
+                for i,box in enumerate(bbox_trackers):
+                    (x, y, w, h) = [int(v) for v in box]
+                    cv2.rectangle(np_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                    saved_bboxes.append([ind+1, x, x+w, y, y+h])
+
+
+
 
         else:
-            overlap_checker = np.zeros([np_frame.shape[0], np_frame.shape[1]], dtype=np.uint8)
-
             (success, boxes) = trackers.update(frame)
 
+
             if success:
+                px = []
+                py = []
+                pw = []
+                ph = []
                 for i, box in enumerate(boxes):
                     (x, y, w, h) = [int(v) for v in box]
                     if 0 <= x < W and 0 <= y < H and x + w <= W and y + h <= H:
-                        overlap_checker[y:y+h, x:x+w] = 255
+                        px.append(x)
+                        py.append(y)
+                        pw.append(w)
+                        ph.append(h)
                         cv2.rectangle(np_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
                         saved_bboxes.append([ind + 1, x, x + w, y, y + h])
 
+
+
             if not success:
+                print('tracking reset')
+
                 trackers = cv2.legacy.MultiTracker_create()
-                for box in boxes:
-                    x, y, w, h = [int(v) for v in box]
-                    if 0 <= x < W and 0 <= y < H and x + w <= W and y + h <= H:
-                        tracker = OPENCV_OBJECT_TRACKERS['csrt']()
-                        trackers.add(tracker, frame, (x, y, w, h))
-                        cv2.rectangle(np_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
-                        saved_bboxes.append([ind + 1, x, x + w, y, y + h])
+                for index in range(0, len(px)):
+                    if px[index]+pw[index] < W and px[index] > 0 and py[index]+ph[index] < H and py[index] > 0:
+
+                        roi2 = (px[index], py[index], pw[index], ph[index])
+                        tracker = tracker = OPENCV_OBJECT_TRACKERS['csrt']()
+                        trackers.add(tracker, frame, roi2)
+
+                bbox_trackers = trackers.getObjects()
+                for i,box in enumerate(bbox_trackers):
+                    (x, y, w, h) = [int(v) for v in box]
+                    cv2.rectangle(np_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+                    saved_bboxes.append([ind+1, x, x+w, y, y+h])
+
+
+
 
             # Run YOLOv6 and Faster R-CNN detection in parallel
             with ThreadPoolExecutor(max_workers=2) as executor:
-                future_yolo = executor.submit(inferer.inferv2, ai_frame, conf_thres, iou_thres, None, agnostic_nms, max_det, conf_threshold, overlap_threshold)
+                future_yolo = executor.submit(inferer.inferv2, ai_frame, 0.2, iou_thres, None, agnostic_nms, max_det, conf_threshold, overlap_threshold)
                 future_rcnn = executor.submit(model, preprocess_image(ai_frame).to(device))
                 yolo_boxes = future_yolo.result()
                 faster_rcnn_outputs = future_rcnn.result()
@@ -363,7 +388,7 @@ def main(weights, device, conf_threshold, video_file, output_file, overlap_thres
 
             
             # Merge YOLOv6 and Faster R-CNN boxes
-            merged_boxes = merge_boxes(faster_rcnn_boxes, yolo_boxes)
+            merged_boxes = merge_boxes(faster_rcnn_boxes, yolo_boxes, iou_threshold)
 
             # Initialize trackers with merged boxes
             trackers = cv2.legacy.MultiTracker_create()
@@ -394,6 +419,7 @@ def main(weights, device, conf_threshold, video_file, output_file, overlap_thres
     cv2.destroyAllWindows()
 
 app = QtWidgets.QApplication(sys.argv)
+
 MainWindow = QtWidgets.QMainWindow()
 ui = Ui_MainWindow()
 ui.setupUi(MainWindow)
