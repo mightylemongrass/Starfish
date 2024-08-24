@@ -7,9 +7,9 @@ import yaml
 import torch
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-from torchvision import transforms
 import pandas as pd
 import copy
+from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.getcwd()
 if str(ROOT) not in sys.path:
@@ -158,27 +158,21 @@ def main():
                         cv2.rectangle(np_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
                         saved_bboxes.append([ind + 1, x, x + w, y, y + h])
 
-            # YOLOv6 detection
-            yolo_boxes = []
-            boxes = inferer.inferv2(ai_frame, conf_thres, iou_thres, None, agnostic_nms, max_det, conf_threshold, overlap_threshold)
-            for line in boxes:
-                x1, y1, x2, y2 = line[1]
+            # Run YOLOv6 and Faster R-CNN detection in parallel
+            with ThreadPoolExecutor(max_workers=2) as executor:
+                future_yolo = executor.submit(inferer.inferv2, ai_frame, conf_thres, iou_thres, None, agnostic_nms, max_det, conf_threshold, overlap_threshold)
+                future_rcnn = executor.submit(model, preprocess_image(ai_frame).to(device))
 
-                block = overlap_checker[y1:y2, x1:x2].astype(np.float32)
-                block_mean = np.mean(block)
-                
-                if block_mean <= overlap_threshold:
-                    yolo_boxes.append((x1, y1, x2, y2))
+                yolo_boxes = future_yolo.result()
+                faster_rcnn_outputs = future_rcnn.result()
 
-            # Faster R-CNN detection
-            image = preprocess_image(ai_frame).to(device)
-            with torch.no_grad():
-                outputs = model(image)
-            faster_rcnn_boxes = outputs[0]['boxes'].cpu().numpy()
-            faster_rcnn_scores = outputs[0]['scores'].cpu().numpy()
+            # Process YOLOv6 results
+            yolo_boxes = [box[1] for box in yolo_boxes if box[0] == 1]
 
-            faster_rcnn_boxes = faster_rcnn_boxes[faster_rcnn_scores > rcnn_threshold]
-            faster_rcnn_boxes = [box.astype(int) for box in faster_rcnn_boxes]
+            # Process Faster R-CNN results
+            faster_rcnn_boxes = faster_rcnn_outputs[0]['boxes'].cpu().numpy()
+            faster_rcnn_scores = faster_rcnn_outputs[0]['scores'].cpu().numpy()
+            faster_rcnn_boxes = faster_rcnn_boxes[faster_rcnn_scores > rcnn_threshold].astype(int)
 
             # Merge YOLOv6 and Faster R-CNN boxes
             merged_boxes = merge_boxes(faster_rcnn_boxes, yolo_boxes)
@@ -186,10 +180,9 @@ def main():
             # Initialize trackers with merged boxes
             trackers = cv2.legacy.MultiTracker_create()
             for box in merged_boxes:
-                tracker = OPENCV_OBJECT_TRACKERS['csrt']()
                 x1, y1, x2, y2 = box.astype(int)
-                roi = (x1, y1, x2 - x1, y2 - y1)
-                trackers.add(tracker, frame, roi)
+                tracker = OPENCV_OBJECT_TRACKERS['csrt']()
+                trackers.add(tracker, frame, (x1, y1, x2 - x1, y2 - y1))
                 cv2.rectangle(np_frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
                 saved_bboxes.append([ind + 1, x1, x2, y1, y2])
 
