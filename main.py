@@ -516,8 +516,7 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
         print("frame number: ", ind+1) # displaying which frame number the video is currently proccessing
         timer += 1
         ind += 1
-        if ind == 10:
-            break
+
 
     # Save bounding box coordinates to xls file
     my_df = pd.DataFrame(saved_bboxes, columns=['Current Frame', 'X Bound, Left', 'X Bound, Right', 'Y Bound, Upper', 'Y Bound, Lower'])
