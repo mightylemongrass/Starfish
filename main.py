@@ -558,24 +558,22 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
 
 
 
-def initialization():
-    args = args_parser().parse_args()
-    # reads in arguments to determine whether to use yaml settings for program
+args = args_parser().parse_args()
+# reads in arguments to determine whether to use yaml settings for program
 
-    if args.use_yaml == False: # Create the application and the main window
-        
-        app = QtWidgets.QApplication(sys.argv)
-        MainWindow = QtWidgets.QMainWindow()
+if args.use_yaml == False: # Create the application and the main window
+    
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
 
-        # Setup the UI and show the main window
-        ui = Ui_MainWindow()
-        ui.setupUi(MainWindow)
-        MainWindow.show()
+    # Setup the UI and show the main window
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
 
-        # Start the application event loop
+    # Start the application event loop
 
-        sys.exit(app.exec_())
-    else: # use yaml file as input instead
-        yaml_startup(args.yaml_path)
+    sys.exit(app.exec_())
+else: # use yaml file as input instead
+    yaml_startup(args.yaml_path)
 
-initialization()
