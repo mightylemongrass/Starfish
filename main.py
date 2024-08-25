@@ -380,7 +380,15 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
     size = (frame_width, frame_height)
 
     # Initialize the video writer
-    result = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*'MJPG'), 30, size)
+    fn_ext = output_file.split(".")[-1].lower()
+    if fn_ext == 'avi':
+        result = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*'MJPG'), 30, size)
+    elif fn_ext == 'mp4':
+        result = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*'mp4v'), 30, size)
+    else:
+        print('video file is incompatible with program')
+        exit()
+
 
     # Define OpenCV object trackers
     OPENCV_OBJECT_TRACKERS = {
@@ -502,15 +510,18 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
             cv2.waitKey(30)
         
         # Write the frame to the output video file
+        
         result.write(np_frame)
         
         print("frame number: ", ind+1) # displaying which frame number the video is currently proccessing
         timer += 1
         ind += 1
+        if ind == 10:
+            break
 
     # Save bounding box coordinates to xls file
     my_df = pd.DataFrame(saved_bboxes, columns=['Current Frame', 'X Bound, Left', 'X Bound, Right', 'Y Bound, Upper', 'Y Bound, Lower'])
-    my_df.to_excel(xls_file_path, index=False)
+    my_df.to_excel(xls_file_path, engine='openpyxl', index=False)
 
     # Release resources
     cap.release()
@@ -527,4 +538,5 @@ ui.setupUi(MainWindow)
 MainWindow.show()
 
 # Start the application event loop
+
 sys.exit(app.exec_())
