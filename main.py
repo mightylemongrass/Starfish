@@ -115,11 +115,11 @@ class Ui_MainWindow(object):
         """
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(960, 800)
+        
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        
-        # Setup buttons, labels, and text edits
         self.run_button = QtWidgets.QPushButton(self.centralwidget)
+        
         self.run_button.setGeometry(QtCore.QRect(180, 90, 600, 40))
         self.run_button.setObjectName("run_button")
         self.run_button.clicked.connect(self.run_program)
@@ -128,86 +128,93 @@ class Ui_MainWindow(object):
         self.Label.setGeometry(QtCore.QRect(0, 20, 960, 40))
         self.Label.setObjectName("Label")
         
-        # Define text edit fields and labels for various parameters
         self.yolockpt = QtWidgets.QTextEdit(self.centralwidget)
-        self.yolockpt.setGeometry(QtCore.QRect(330, 210, 560, 40))
+        self.yolockpt.setGeometry(QtCore.QRect(330, 200, 560, 40))
         self.yolockpt.setObjectName("yolockpt")
         
         self.yolo_conf = QtWidgets.QTextEdit(self.centralwidget)
-        self.yolo_conf.setGeometry(QtCore.QRect(330, 260, 560, 40))
+        self.yolo_conf.setGeometry(QtCore.QRect(330, 250, 560, 40))
         self.yolo_conf.setObjectName("yolo_conf")
         
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(40, 210, 250, 40))
+        self.label.setGeometry(QtCore.QRect(40, 200, 250, 40))
         self.label.setObjectName("label")
         
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(40, 260, 250, 40))
+        self.label_2.setGeometry(QtCore.QRect(40, 250, 250, 40))
         self.label_2.setObjectName("label_2")
         
         self.Device = QtWidgets.QTextEdit(self.centralwidget)
-        self.Device.setGeometry(QtCore.QRect(330, 560, 560, 40))
+        self.Device.setGeometry(QtCore.QRect(330, 550, 560, 40))
         self.Device.setObjectName("Device")
         
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(40, 560, 250, 40))
+        self.label_4.setGeometry(QtCore.QRect(40, 550, 250, 40))
         self.label_4.setObjectName("label_4")
         
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(40, 610, 250, 40))
+        self.label_5.setGeometry(QtCore.QRect(40, 600, 250, 40))
         self.label_5.setObjectName("label_5")
         
         self.overlap_threshold = QtWidgets.QTextEdit(self.centralwidget)
-        self.overlap_threshold.setGeometry(QtCore.QRect(330, 610, 560, 40))
+        self.overlap_threshold.setGeometry(QtCore.QRect(330, 600, 560, 40))
         self.overlap_threshold.setObjectName("overlap_threshold")
         
         self.label_6 = QtWidgets.QLabel(self.centralwidget)
-        self.label_6.setGeometry(QtCore.QRect(40, 310, 250, 40))
+        self.label_6.setGeometry(QtCore.QRect(40, 300, 250, 40))
         self.label_6.setObjectName("label_6")
         
         self.fasterrcnn_ckpt_file = QtWidgets.QTextEdit(self.centralwidget)
-        self.fasterrcnn_ckpt_file.setGeometry(QtCore.QRect(330, 310, 560, 40))
+        self.fasterrcnn_ckpt_file.setGeometry(QtCore.QRect(330, 300, 560, 40))
         self.fasterrcnn_ckpt_file.setObjectName("fasterrcnn_ckpt_file")
         
         self.label_7 = QtWidgets.QLabel(self.centralwidget)
-        self.label_7.setGeometry(QtCore.QRect(40, 360, 250, 40))
+        self.label_7.setGeometry(QtCore.QRect(40, 350, 250, 40))
         self.label_7.setObjectName("label_7")
         
         self.fasterrcnn_conf = QtWidgets.QTextEdit(self.centralwidget)
-        self.fasterrcnn_conf.setGeometry(QtCore.QRect(330, 360, 560, 40))
+        self.fasterrcnn_conf.setGeometry(QtCore.QRect(330, 350, 560, 40))
         self.fasterrcnn_conf.setObjectName("fasterrcnn_conf")
         
         self.label_8 = QtWidgets.QLabel(self.centralwidget)
-        self.label_8.setGeometry(QtCore.QRect(40, 460, 250, 40))
+        self.label_8.setGeometry(QtCore.QRect(40, 450, 250, 40))
         self.label_8.setObjectName("label_8")
         
         self.output_vid = QtWidgets.QTextEdit(self.centralwidget)
-        self.output_vid.setGeometry(QtCore.QRect(330, 460, 560, 40))
+        self.output_vid.setGeometry(QtCore.QRect(330, 450, 560, 40))
         self.output_vid.setObjectName("output_vid")
         
         self.label_9 = QtWidgets.QLabel(self.centralwidget)
-        self.label_9.setGeometry(QtCore.QRect(40, 410, 250, 40))
+        self.label_9.setGeometry(QtCore.QRect(40, 400, 250, 40))
         self.label_9.setObjectName("label_9")
         
         self.input_vid = QtWidgets.QTextEdit(self.centralwidget)
-        self.input_vid.setGeometry(QtCore.QRect(330, 410, 560, 40))
+        self.input_vid.setGeometry(QtCore.QRect(330, 400, 560, 40))
         self.input_vid.setObjectName("input_vid")
         
         self.output_csv = QtWidgets.QTextEdit(self.centralwidget)
-        self.output_csv.setGeometry(QtCore.QRect(330, 510, 560, 40))
+        self.output_csv.setGeometry(QtCore.QRect(330, 500, 560, 40))
         self.output_csv.setObjectName("output_csv")
         
         self.label_10 = QtWidgets.QLabel(self.centralwidget)
-        self.label_10.setGeometry(QtCore.QRect(40, 510, 250, 40))
+        self.label_10.setGeometry(QtCore.QRect(40, 500, 250, 40))
         self.label_10.setObjectName("label_10")
         
         self.frame_rate = QtWidgets.QTextEdit(self.centralwidget)
-        self.frame_rate.setGeometry(QtCore.QRect(330, 660, 560, 40))
+        self.frame_rate.setGeometry(QtCore.QRect(330, 650, 560, 40))
         self.frame_rate.setObjectName("frame_rate")
         
         self.label_11 = QtWidgets.QLabel(self.centralwidget)
-        self.label_11.setGeometry(QtCore.QRect(40, 660, 250, 40))
+        self.label_11.setGeometry(QtCore.QRect(40, 650, 250, 40))
         self.label_11.setObjectName("label_11")
+        
+        self.view_video = QtWidgets.QTextEdit(self.centralwidget)
+        self.view_video.setGeometry(QtCore.QRect(330, 700, 560, 40))
+        self.view_video.setObjectName("view_video")
+        
+        self.label_12 = QtWidgets.QLabel(self.centralwidget)
+        self.label_12.setGeometry(QtCore.QRect(40, 700, 250, 40))
+        self.label_12.setObjectName("label_12")
         
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -217,6 +224,7 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
+
 
         # Retranslate the UI to set text for widgets
         self.retranslateUi(MainWindow)
@@ -238,7 +246,8 @@ class Ui_MainWindow(object):
             self.output_csv.toPlainText(), 
             float(self.fasterrcnn_conf.toPlainText()), 
             int(self.frame_rate.toPlainText()), 
-            osp.join(self.fasterrcnn_ckpt_file.toPlainText())
+            osp.join(self.fasterrcnn_ckpt_file.toPlainText()), 
+            self.view_video.toPlainText().lower().capitalize()
         )
         
     def retranslateUi(self, MainWindow):
@@ -255,55 +264,71 @@ class Ui_MainWindow(object):
         self.yolockpt.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\last_ckpt.pt</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\last_ckpt.pt</p></body></html>"))
         self.yolo_conf.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.33</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.33</span></p></body></html>"))
         self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">YOLO Ckpt File Location</span></p></body></html>"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">YOLO Conf Threshold: </span></p></body></html>"))
         self.Device.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0</span></p></body></html>"))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Device</span></p></body></html>"))
         self.label_5.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">IOU Threshold</span></p></body></html>"))
         self.overlap_threshold.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.4</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.4</span></p></body></html>"))
         self.label_6.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Faster Rcnn Ckpt File Location</span></p></body></html>"))
         self.fasterrcnn_ckpt_file.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\best_brittle_star_model6.pth</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\best_brittle_star_model6.pth</p></body></html>"))
         self.label_7.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Faster Rcnn Conf Threshold</span></p></body></html>"))
         self.fasterrcnn_conf.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.31</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">0.31</span></p></body></html>"))
         self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Output Video File Location</span></p></body></html>"))
         self.output_vid.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\starfish_finder.avi</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\starfish_finder.avi</p></body></html>"))
         self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Input Video File Location</span></p></body></html>"))
         self.input_vid.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\seafloor_footage.avi</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\seafloor_footage.avi</p></body></html>"))
         self.output_csv.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\starfish_bboxes.csv</p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">C:\\\\Users\\\\ianki\\\\Documents\\\\2023-2024_coding\\\\AI_studies\\\\starfish_final\\\\starfish_bboxes.csv</p></body></html>"))
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Output BBox Csv Location</span></p></body></html>"))
         self.frame_rate.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\"><p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">30</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">30</span></p></body></html>"))
         self.label_11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">Tracker Update Frame Rate</span></p></body></html>"))
+        self.view_video.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">False</span></p></body></html>"))
+        self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:10pt;\">View Video</span></p></body></html>"))
 
-def main(weights, device, conf_threshold, video_file, output_file, iou_threshold, csv_file_path, rcnn_threshold, frame_rate, faster_rcnn_location):
+def main(weights, device, conf_threshold, video_file, output_file, iou_threshold, csv_file_path, rcnn_threshold, frame_rate, faster_rcnn_location, view_video):
     """
     Main function to run the detection and tracking process.
     
@@ -463,9 +488,10 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
 
             timer = 0
 
-        # Display the output frame
-        cv2.imshow('output', np_frame)
-        cv2.waitKey(30)
+        # Display the output frame if the option to view video is turned on
+        if view_video == True:
+            cv2.imshow('output', np_frame)
+            cv2.waitKey(30)
         
         # Write the frame to the output video file
         result.write(np_frame)
