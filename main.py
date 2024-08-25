@@ -8,19 +8,17 @@ import yaml
 import torch
 import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-from torchvision import transforms
 import pandas as pd
 import copy
-from yolov6.utils.events import LOGGER
 from yolov6.core.inferer_starfish import Inferer
+import argparse
 
 # PyQt5 imports for creating the GUI
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from concurrent.futures import ThreadPoolExecutor
+
 
 # Set the root directory and add it to sys.path if not already included
 ROOT = os.getcwd()
@@ -234,6 +232,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
     def run_program(self):
         """
         Method to run the main program when the button is clicked.
@@ -331,6 +330,36 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\">False</span></p></body></html>"))
+
+
+
+
+
+
+def args_parser(): # recieves arguments to determine whether to use ui or yaml file
+    parser = argparse.ArgumentParser(description='YOLOv6 PyTorch Training', add_help=True)
+    parser.add_argument('--use-yaml', default=False, type=bool, help='if set to True, then yaml file settings will be used instead of ui')
+    parser.add_argument('--yaml-path', default='parameters.yaml', type=str, help='path of yaml (--use-yaml argument must be set to True)')
+    return parser
+
+def yaml_startup(yaml_filepath):
+    # reads in yaml settings and calls main function with these settings
+    with open(yaml_filepath, 'r') as file:
+        data = yaml.safe_load(file)
+
+    weights = osp.join(data['YOLO_file_location'])
+    device = data['device']
+    conf_threshold = data['yolo_conf_threshold']
+    video_file = data['video_file']
+    output_file = data['output_file_location']
+    overlap_threshold = data['overlap_threshold']
+    xls_file_path = data['xls_filepath']
+    rcnn_threshold = data['faster_rcnn_conf_threshold']
+    frame_rate = data['frame_rate_of_program']
+    faster_rcnn_location = data['faster_rcnn_location']
+    view_video = data['view_video']
+    main(weights, device, conf_threshold, video_file, output_file, overlap_threshold, xls_file_path, rcnn_threshold, frame_rate, faster_rcnn_location, view_video)
+
 
 
 def main(weights, device, conf_threshold, video_file, output_file, iou_threshold, xls_file_path, rcnn_threshold, frame_rate, faster_rcnn_location, view_video):
@@ -527,15 +556,26 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
     result.release()
     cv2.destroyAllWindows()
 
-# Create the application and the main window
-app = QtWidgets.QApplication(sys.argv)
-MainWindow = QtWidgets.QMainWindow()
 
-# Setup the UI and show the main window
-ui = Ui_MainWindow()
-ui.setupUi(MainWindow)
-MainWindow.show()
 
-# Start the application event loop
+def initialization():
+    args = args_parser().parse_args()
+    # reads in arguments to determine whether to use yaml settings for program
 
-sys.exit(app.exec_())
+    if args.use_yaml == False: # Create the application and the main window
+        
+        app = QtWidgets.QApplication(sys.argv)
+        MainWindow = QtWidgets.QMainWindow()
+
+        # Setup the UI and show the main window
+        ui = Ui_MainWindow()
+        ui.setupUi(MainWindow)
+        MainWindow.show()
+
+        # Start the application event loop
+
+        sys.exit(app.exec_())
+    else: # use yaml file as input instead
+        yaml_startup(args.yaml_path)
+
+initialization()
