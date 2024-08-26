@@ -542,7 +542,7 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
         
         result.write(np_frame)
         
-        print("frame number: ", ind+1) # displaying which frame number the video is currently proccessing
+        print("frame number: ", ind+1) # Displaying which frame number the video is currently proccessing
         timer += 1
         ind += 1
 
@@ -559,7 +559,7 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
 
 
 args = args_parser().parse_args()
-# reads in arguments to determine whether to use ui or yaml settings for program
+# Reads in arguments to determine whether to use ui or yaml settings for program
 
 if args.use_yaml == False: # Create the application and the main window
     
@@ -574,6 +574,6 @@ if args.use_yaml == False: # Create the application and the main window
     # Start the application event loop
 
     sys.exit(app.exec_())
-else: # use yaml file as input instead
+else: # Use yaml file as input instead
     yaml_startup(args.yaml_path)
 
