@@ -336,7 +336,7 @@ class Ui_MainWindow(object):
 
 
 
-def args_parser(): # recieves arguments to determine whether to use ui or yaml file
+def args_parser(): # recieves arguments from terminal to determine whether to use ui or yaml file
     parser = argparse.ArgumentParser(description='YOLOv6 PyTorch Training', add_help=True)
     parser.add_argument('--use-yaml', default=False, type=bool, help='if set to True, then yaml file settings will be used instead of ui')
     parser.add_argument('--yaml-path', default='parameters.yaml', type=str, help='path of yaml (--use-yaml argument must be set to True)')
@@ -409,7 +409,7 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
     size = (frame_width, frame_height)
 
     # Initialize the video writer
-    fn_ext = output_file.split(".")[-1].lower()
+    fn_ext = output_file.split(".")[-1].lower() # checking if the video is mp4 or avi
     if fn_ext == 'avi':
         result = cv2.VideoWriter(output_file, cv2.VideoWriter_fourcc(*'MJPG'), 30, size)
     elif fn_ext == 'mp4':
@@ -559,7 +559,7 @@ def main(weights, device, conf_threshold, video_file, output_file, iou_threshold
 
 
 args = args_parser().parse_args()
-# reads in arguments to determine whether to use yaml settings for program
+# reads in arguments to determine whether to use ui or yaml settings for program
 
 if args.use_yaml == False: # Create the application and the main window
     
